@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from app import database
 from app.routes import customer
 from fastapi.middleware.cors import CORSMiddleware
+from app.routes import analytics
 
 app = FastAPI()
 
@@ -14,6 +15,7 @@ app.add_middleware(
 )
 
 app.include_router(customer.router)
+app.include_router(analytics.router)
 
 
 @app.get("/health")

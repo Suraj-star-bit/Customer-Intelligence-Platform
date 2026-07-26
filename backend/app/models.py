@@ -1,14 +1,11 @@
-from sqlalchemy import Column, Integer, String, DateTime
-from sqlalchemy.sql import func
+from sqlalchemy import Column, Integer, String
 from app.database import Base
 
 class Customer(Base):
     __tablename__ = "customers"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False)
-    email = Column(String, unique=True, nullable=False)
-    age = Column(Integer)
-    gender = Column(String)
-    location = Column(String)
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    CustomerID = Column(Integer, primary_key=True, index=True)
+    Gender = Column(String)
+    Age = Column(Integer)
+    Annual_Income = Column("Annual Income (k$)", Integer)
+    Spending_Score = Column("Spending Score (1-100)", Integer)
