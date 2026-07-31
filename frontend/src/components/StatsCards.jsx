@@ -1,3 +1,5 @@
+import "./StatsCards.css";
+
 function StatsCards({ customers }) {
   const totalCustomers = customers.length;
 
@@ -45,43 +47,45 @@ const premiumCustomers =
   ).length;
 
   return (
-    <div className="cards">
-      <div className="card">
-        <h3>Total Customers</h3>
-        <p>{totalCustomers}</p>
-      </div>
+  <div className="stats-grid">
 
-      <div className="card">
-        <h3>Average Age</h3>
-        <p>{averageAge}</p>
-      </div>
-
-      <div className="card">
-        <h3>Average Income</h3>
-        <p>{averageIncome} k$</p>
-      </div>
-
-      <div className="card">
-        <h3>Average Spending</h3>
-        <p>{averageSpending}</p>
-      </div>
-
-      <div className="card">
-        <h3>Highest Income</h3>
-        <p>{highestIncome} k$</p>
-      </div>
-
-      <div className="card">
-        <h3>Highest Spending</h3>
-        <p>{highestSpending}</p>
-      </div>
-
-      <div className="card">
-        <h3>Premium Customers</h3>
-        <p>{premiumCustomers}</p>
-      </div>
+    <div className="card">
+      <h3>👥 Total Customers</h3>
+      <p>{totalCustomers}</p>
     </div>
-  );
+
+    <div className="card">
+      <h3>🎂 Average Age</h3>
+      <p>{averageAge}</p>
+    </div>
+
+    <div className="card">
+      <h3>💰 Average Income</h3>
+      <p>{averageIncome} k$</p>
+    </div>
+
+    <div className="card">
+      <h3>⭐ Average Spending</h3>
+      <p>{averageSpending}</p>
+    </div>
+
+    <div className="card">
+      <h3>📈 Highest Income</h3>
+      <p>{highestIncome} k$</p>
+    </div>
+
+    <div className="card">
+      <h3>🔥 Highest Spending</h3>
+      <p>{highestSpending}</p>
+    </div>
+
+    <div className="card">
+      <h3>🏆 Premium Customers</h3>
+      <p>{premiumCustomers}</p>
+    </div>
+
+  </div>
+);
 }
 
 export default StatsCards;

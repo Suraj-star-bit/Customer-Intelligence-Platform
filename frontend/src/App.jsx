@@ -9,50 +9,154 @@ import SegmentChart from "./components/SegmentChart";
 import AgeDistributionChart from "./components/AgeDistributionChart"
 import IncomeDistributionChart from "./components/IncomeDistributionChart";
 import SpendingDistributionChart from "./components/SpendingDistributionChart";
-
+import DashboardCard from "./components/DashboardCard";
+import "./App.css";
+import DashboardHeader from "./components/DashboardHeader";
+import SegmentSummary from "./components/SegmentSummary";
+import HighValueCustomers from "./components/HighValueCustomers";
 
 
 function App() {
   const [customers, setCustomers] = useState([]);
+  const [gender, setGender] = useState("");
+  const [minAge, setMinAge] = useState("");
+  const [searchId, setSearchId] = useState("");
+  const [segment, setSegment] = useState("");
 
   useEffect(() => {
-    api
-      .get("/customers")
-      .then((response) => {
-        setCustomers(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching customers:", error);
-      });
-  }, []);
+      const params = new URLSearchParams();
 
-  return (
-    <>
-      <Navbar />
+      if (gender) {
+        params.append("gender", gender);
+      }
+
+      if (minAge !== "") {
+        params.append("min_age", minAge);
+      }
+
+      const query = params.toString();
+      const url = query ? `/customers?${query}` : "/customers";
+
+      api.get(url)
+        .then((response) => {
+          setCustomers(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching customers:", error);
+        });
+
+    }, [gender, minAge]);
+
+    const filteredCustomers = customers.filter((customer) => {
+
+  const idMatch =
+    searchId === "" ||
+    customer.CustomerID.toString().includes(searchId);
+
+  const segmentMatch =
+    segment === "" ||
+    customer.Customer_Segment?.toString() === segment;
+
+  return idMatch && segmentMatch;
+});
 
 
 
-<div className="container">
+ return (
+<>
+    <Navbar />
+
+    <div className="dashboard">
+
+    <DashboardHeader />
 
     <StatsCards customers={customers} />
 
-    <GenderChart customers={customers} />
+        <div className="chart-grid">
 
-    <SegmentChart />
+          <DashboardCard title="Gender Distribution">
+            <GenderChart customers={customers} />
+          </DashboardCard>
 
-    <AgeDistributionChart customers={customers} />
+          <DashboardCard title="Customer Segments">
+            <SegmentChart />
+          </DashboardCard>
 
-    <IncomeDistributionChart customers={customers} />
+          <DashboardCard title="Age Distribution">
+            <AgeDistributionChart customers={customers} />
+          </DashboardCard>
 
-    <SpendingDistributionChart customers={customers} />
-    
-    <CustomerTable customers={customers} />
+          <DashboardCard title="Income Distribution">
+            <IncomeDistributionChart customers={customers} />
+          </DashboardCard>
 
-    <AIInsights />
+          <DashboardCard title="Spending Distribution">
+            <SpendingDistributionChart customers={customers} />
+          </DashboardCard>
 
-</div>
-    </>
-  );
+          <DashboardCard title="AI Insights">
+            <AIInsights />
+          </DashboardCard>
+
+        </div>
+        <SegmentSummary />
+          <HighValueCustomers />
+
+        <div className="filter-section">
+
+          <input
+            type="text"
+            placeholder="🔍 Search Customer ID"
+            value={searchId}
+            onChange={(e) => setSearchId(e.target.value)}
+          />
+
+          <select
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+          >
+            <option value="">All Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+
+          <select
+            value={segment}
+            onChange={(e) => setSegment(e.target.value)}
+          >
+            <option value="">All Segments</option>
+            <option value="0">Segment 0</option>
+            <option value="1">Segment 1</option>
+            <option value="2">Segment 2</option>
+            <option value="3">Segment 3</option>
+            <option value="4">Segment 4</option>
+          </select>
+
+          <input
+            type="number"
+            placeholder="Minimum Age"
+            value={minAge}
+            onChange={(e) => setMinAge(e.target.value)}
+          />
+
+          <button
+            onClick={() => {
+              setSearchId("");
+              setGender("");
+              setSegment("");
+              setMinAge("");
+            }}
+          >
+            Reset
+          </button>
+
+        </div>
+
+        <CustomerTable customers={filteredCustomers} />
+
+    </div>
+</>
+);
 }
 
 export default App;

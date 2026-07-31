@@ -215,13 +215,29 @@ def get_recommendations():
     else:
         recommendations.append("Male customers form the majority. Optimise campaigns for this audience.")
 
+    # NEW: Segment-wise business strategies
+    segment_recommendations = {
+        "Premium Customers":
+            "Offer exclusive memberships and premium products.",
+
+        "Young Active Shoppers":
+            "Promote trending products through digital campaigns.",
+
+        "Conservative Customers":
+            "Provide loyalty rewards and value-for-money bundles.",
+
+        "High Income, Low Spending":
+            "Use personalised offers to encourage higher spending."
+    }
+
     db.close()
 
     return {
         "average_age": round(avg_age, 2),
         "average_income": round(avg_income, 2),
         "average_spending": round(avg_spending, 2),
-        "recommendations": recommendations
+        "recommendations": recommendations,
+        "segment_recommendations": segment_recommendations
     }
 
 @router.get("/highest-income")
@@ -261,3 +277,33 @@ def premium_customers():
     return {
         "premium_customers": premium
     }
+
+@router.get("/analytics/segment-summary")
+def segment_summary():
+    db = SessionLocal()
+
+    segments = (
+        db.query(
+            Customer.Customer_Segment,
+            func.count(Customer.CustomerID).label("total_customers"),
+            func.avg(Customer.Annual_Income).label("avg_income"),
+            func.avg(Customer.Spending_Score).label("avg_spending"),
+            func.avg(Customer.Age).label("avg_age")
+        )
+        .group_by(Customer.Customer_Segment)
+        .order_by(Customer.Customer_Segment)
+        .all()
+    )
+
+    db.close()
+
+    return [
+        {
+            "segment": s.Customer_Segment,
+            "customers": s.total_customers,
+            "average_income": round(s.avg_income, 2),
+            "average_spending": round(s.avg_spending, 2),
+            "average_age": round(s.avg_age, 2),
+        }
+        for s in segments
+    ]

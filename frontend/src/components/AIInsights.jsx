@@ -45,13 +45,15 @@ function AIInsights() {
         <strong>Average Spending:</strong> {data.average_spending}
       </p>
 
-      <h3>Recommendations</h3>
+      <h3>Segment Strategies</h3>
 
-      <ul>
-        {data?.recommendations?.map((item, index) => (
-          <li key={index}>✅ {item}</li>
-        ))}
-      </ul>
+        <ul>
+          {Object.entries(data.segment_recommendations).map(([segment, strategy]) => (
+            <li key={segment}>
+              <strong>{segment}:</strong> {strategy}
+            </li>
+          ))}
+        </ul>
     </div>
   );
 }

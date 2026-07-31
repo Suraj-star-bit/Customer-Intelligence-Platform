@@ -9,3 +9,4 @@ class Customer(Base):
     Age = Column(Integer)
     Annual_Income = Column("Annual Income (k$)", Integer)
     Spending_Score = Column("Spending Score (1-100)", Integer)
+    Customer_Segment = Column("Customer_Segment", Integer)
