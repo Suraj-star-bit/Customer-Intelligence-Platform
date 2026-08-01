@@ -22,6 +22,11 @@ app.add_middleware(
 app.include_router(customer.router)
 app.include_router(analytics.router)
 
+@app.get("/")
+def root():
+    return {
+        "message": "Customer Intelligence API is running"
+    }
 
 @app.get("/health")
 def health_check():
