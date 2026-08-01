@@ -14,6 +14,7 @@ import "./App.css";
 import DashboardHeader from "./components/DashboardHeader";
 import SegmentSummary from "./components/SegmentSummary";
 import HighValueCustomers from "./components/HighValueCustomers";
+import TopCustomers from "./components/TopCustomers";
 
 
 function App() {
@@ -99,8 +100,17 @@ function App() {
           </DashboardCard>
 
         </div>
-        <SegmentSummary />
+        <DashboardCard title="Customer Segment Summary">
+          <SegmentSummary />
+      </DashboardCard>
+
+      <DashboardCard title="High Value Customers">
           <HighValueCustomers />
+      </DashboardCard>
+
+      <DashboardCard title="Top 10 Customers">
+          <TopCustomers />
+      </DashboardCard>
 
         <div className="filter-section">
 
@@ -125,11 +135,10 @@ function App() {
             onChange={(e) => setSegment(e.target.value)}
           >
             <option value="">All Segments</option>
-            <option value="0">Segment 0</option>
-            <option value="1">Segment 1</option>
-            <option value="2">Segment 2</option>
-            <option value="3">Segment 3</option>
-            <option value="4">Segment 4</option>
+              <option value="0">Conservative Customers</option>
+              <option value="1">Premium Customers</option>
+              <option value="2">Young Active Shoppers</option>
+              <option value="3">High Income, Low Spending</option>
           </select>
 
           <input

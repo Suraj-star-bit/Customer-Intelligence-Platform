@@ -4,6 +4,7 @@ function CustomerTable({ customers }) {
 
 
   return (
+    <div className="table-container">
     <table>
       <thead>
         <tr>
@@ -23,6 +24,8 @@ function CustomerTable({ customers }) {
         ))}
       </tbody>
     </table>
+
+    </div>
   );
 }
 

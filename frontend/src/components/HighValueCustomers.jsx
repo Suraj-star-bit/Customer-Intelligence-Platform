@@ -18,6 +18,7 @@ function HighValueCustomers() {
 
             <h2>High Value Customers</h2>
 
+            <div className="table-container">
             <table>
 
                 <thead>
@@ -50,6 +51,7 @@ function HighValueCustomers() {
 
             </table>
 
+            </div>
         </div>
     );
 

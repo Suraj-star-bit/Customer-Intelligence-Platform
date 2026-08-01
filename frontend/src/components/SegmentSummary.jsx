@@ -13,7 +13,7 @@ function SegmentSummary() {
   return (
     <div>
       <h2>Customer Segment Summary</h2>
-
+      <div className="table-container">
       <table>
         <thead>
           <tr>
@@ -37,6 +37,7 @@ function SegmentSummary() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

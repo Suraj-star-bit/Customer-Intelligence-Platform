@@ -104,3 +104,25 @@ tr:hover {
   margin-bottom: 20px;
   color: #374151;
 }
+
+.dashboard-card{
+    background:#fff;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.dashboard-card-header{
+    margin-bottom:15px;
+    border-bottom:1px solid #e5e7eb;
+    padding-bottom:10px;
+}
+
+.dashboard-card-header h3{
+    margin:0;
+    font-size:20px;
+}
+
+.dashboard-card-body{
+    width:100%;
+}
