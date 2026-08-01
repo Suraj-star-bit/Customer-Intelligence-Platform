@@ -14,7 +14,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://customer-intelligence-platform-k4t34qwed.vercel.app"
+        "https://customer-intelligence-platform-owaqo7lys.vercel.app",
+        "https://customer-intelligence-platform-k4t34qwed.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
