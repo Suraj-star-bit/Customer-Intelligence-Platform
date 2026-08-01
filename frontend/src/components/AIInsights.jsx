@@ -3,16 +3,23 @@ import { useEffect, useState } from "react";
 function AIInsights() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     fetch("https://customer-intelligence-platform-api.onrender.com/recommendations")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed API request");
+        }
+        return res.json();
+      })
       .then((result) => {
         setData(result);
         setLoading(false);
       })
       .catch((err) => {
         console.error(err);
+        setError("Failed to load AI insights.");
         setLoading(false);
       });
   }, []);
@@ -22,6 +29,15 @@ function AIInsights() {
       <div>
         🤖 AI Insights
         <p>Loading insights...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div>
+        🤖 AI Insights
+        <p>{error}</p>
       </div>
     );
   }
@@ -46,9 +62,7 @@ function AIInsights() {
 
       <ul>
         {data.recommendations.map((item, index) => (
-          <li key={index}>
-            {item}
-          </li>
+          <li key={index}>{item}</li>
         ))}
       </ul>
     </div>
