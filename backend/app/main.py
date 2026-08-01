@@ -13,7 +13,10 @@ Base.metadata.create_all(bind=engine)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://customer-intelligence-platform-eight.vercel.app/"],
+    allow_origins=[
+    "http://localhost:5173",
+    "https://your-vercel-url.vercel.app"
+],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
