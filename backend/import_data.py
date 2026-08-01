@@ -10,7 +10,7 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 engine = create_engine(DATABASE_URL)
 
 # Read CSV
-df = pd.read_csv("../data/customers_clustered.csv")
+df = pd.read_csv("../data/Mall_Customers.csv")
 
 # Rename columns to match your SQLAlchemy model
 df.rename(columns={
