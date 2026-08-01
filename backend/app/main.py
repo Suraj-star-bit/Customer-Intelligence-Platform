@@ -5,17 +5,18 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routes import analytics
 from app.database import Base, engine
 from app.models import Customer
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
 
+
 app.add_middleware(
     CORSMiddleware,
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_origins=[
         "http://localhost:5173",
-        "https://customer-intelligence-platform-owaqo7lys.vercel.app",
-        "https://customer-intelligence-platform-k4t34qwed.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
