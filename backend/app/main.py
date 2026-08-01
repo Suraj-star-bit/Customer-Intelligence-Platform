@@ -4,7 +4,12 @@ from app.routes import customer
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes import analytics
 
+from app.database import Base, engine
+from app.models import Customer
+
 app = FastAPI()
+
+Base.metadata.create_all(bind=engine)
 
 app.add_middleware(
     CORSMiddleware,
